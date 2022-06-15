@@ -1,0 +1,27 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "de1ed483f8607897349584f25278d2e0c03b2e0f19119aeedaabc64866c9f8f3"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.9"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "databases": {
+            "extras": [
+                "postgresql"
+            ],
+            "version": "*"
+        }
+    },
+    "develop": {}
+}

@@ -1,0 +1,43 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+fastapi = "*"
+asyncpg = "*"
+uvicorn = "*"
+aerich = "*"
+fastapi-admin = "*"
+python-multipart = "*"
+pytest = "*"
+pypdf2 = "*"
+sqlalchemy = "*"
+viztracer = "*"
+install = "*"
+passlib = "*"
+twilio = "*"
+psycopg2-binary = "*"
+alembic = "*"
+stripe = "*"
+fastapi-mail = "*"
+python-dotenv = "*"
+python-docx = "*"
+psycopg2 = "*"
+tld = "*"
+typing-extensions = "*"
+enum34 = "*"
+pyjwt = "*"
+requests = "*"
+pre-commit = "*"
+bcrypt = "*"
+jinja2 = "*"
+
+[requires]
+python_version = "3.9"
+
+[packages.databases]
+extras = [ "postgresql",]
+version = "*"

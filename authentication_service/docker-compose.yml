@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  web:
+    restart: "always"
+    build: .
+    # environment:
+    #   IP: 41.59.88.233
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000"
+    container_name: authentications
+    image: authentications
+    working_dir: /authentications
+    volumes:
+      - ./authentications
+
+    ports:
+      - "8000:8000"
+    # depends_on:
+    #   - db
+      # - redis
