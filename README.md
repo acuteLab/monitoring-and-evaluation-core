@@ -1,2 +1,2 @@
-# monitoring_and_evaluation_core
+# monitoring and evaluation core
 Monitoring and Evaluation Tool
