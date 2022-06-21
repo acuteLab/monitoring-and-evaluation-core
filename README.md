@@ -1,2 +1,2 @@
-# monitoring and evaluation core
-Monitoring and Evaluation Tool
+# monitoring and evaluation core (backend - APIs)
+Monitoring and Evaluation Tool.
