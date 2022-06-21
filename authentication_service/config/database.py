@@ -44,7 +44,7 @@ db_server_port = urllib.parse.quote_plus(env("DB_SERVER_PORT"))
 database_name = env("DB_NAME",)
 db_username = urllib.parse.quote_plus(str(env("DB_USERNAME")))
 db_password = urllib.parse.quote_plus(str(env("DB_PASSWORD")))
-ssl_mode = urllib.parse.quote_plus(str(os.environ.get("ssl_mode", "prefer")))
+ssl_mode = urllib.parse.quote_plus(str("prefer"))
 
 # DATABASE_URL = "postgres://zkteplgdncoixb:b4a322577402b490544372faaed79bef705600cee792cddc84fb4c4dade170a1@ec2-52-71-153-228.compute-1.amazonaws.com:5432/de58k6g9i6etkq"
 

@@ -34,15 +34,15 @@ async def read_users(db: Session = Depends(get_db)):
     return users
 
 
-@router.get("/user/{userId}", response_model=schemas.User)
-async def read_user(user_id: str, db: Session = Depends(get_db)):
+@router.get("/user", response_model=schemas.User)
+async def get_user_by_id(user_id: str, db: Session = Depends(get_db)):
     db_user = operations.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
 
-@router.put("/change-username/{token}")
+@router.put("/change-username")
 async def change_user_name(
     token: str, details: schemas.UserBase, db: Session = Depends(get_db)
 ):
@@ -50,21 +50,21 @@ async def change_user_name(
     return operations.change_username(db, details.email, current_user.id)
 
 
-@router.put("/activate-user/{userId}")
+@router.put("/activate-user")
 async def activate_user_account(
     user_id: str, background: BackgroundTasks, db: Session = Depends(get_db)
 ):
     return operations.activate_user(db, user_id, background)
 
 
-@router.put("/deactivate-user/{userId}")
+@router.put("/deactivate-user")
 async def deactivate_user_account(
     user_id: str, background: BackgroundTasks, db: Session = Depends(get_db)
 ):
     return operations.deactivate_user(db, user_id, background)
 
 
-@router.delete("/delete-user/{userId}")
+@router.delete("/delete-user")
 async def delete_user_account(
     user_id: str, background: BackgroundTasks, db: Session = Depends(get_db)
 ):
@@ -83,14 +83,14 @@ async def request_password_reset(
     )
 
 
-@router.put("/reset-password/{token}")
+@router.put("/reset-password")
 async def reset_user_password(
     token: str, details: schemas.ChangePassword, db: Session = Depends(get_db)
 ):
     return operations.reset_password(db, details.password, token)
 
 
-@router.put("/change-password/{token}")
+@router.put("/change-password")
 async def change_user_password(
     token: str,
     background: BackgroundTasks,
