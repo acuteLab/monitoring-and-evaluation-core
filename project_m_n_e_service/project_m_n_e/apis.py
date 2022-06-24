@@ -1,5 +1,5 @@
 from ninja import NinjaAPI
-from project_planning.apis import project_api, category_api
+from project_planning.apis import project_api, category_api, sub_category_api
 
 
 api = NinjaAPI(
@@ -8,4 +8,5 @@ api = NinjaAPI(
 )
 
 api.add_router("", category_api, tags=["Project Category APIs"])
+api.add_router("", sub_category_api, tags=["Project Sub Category APIs"])
 api.add_router("", project_api, tags=["Project APIs"])

@@ -1,7 +1,4 @@
-from unicodedata import category
-from venv import create
 from ninja.orm import create_schema
-from ninja import Schema
 import uuid
 from typing import List
 from .models import (

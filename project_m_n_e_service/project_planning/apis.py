@@ -8,19 +8,50 @@ project_api = Router()
 category_api = Router()
 sub_category_api = Router()
 
+# Category APIs 
 @category_api.post("/project-category", response=ProjectCategorySchema)
 def create_project_category(request, project_category: CreateProjectCategorySchema):
     return ProjectCategory.create_project_category(request, project_category)
 
-
-@category_api.get("/project-categories")
+@category_api.get("/project-categories", response=List[ProjectCategorySchema])
 def get_categories(request):
     return ProjectCategory.get_project_categories(request)
 
 @category_api.get("/project-category")
-def get_category(request, category_id: str):
-    return ProjectCategory.get_project_category(request, category_id)
+def get_category(request, categoryId: str):
+    return ProjectCategory.get_project_category(request, categoryId)
 
+@category_api.delete("/deactivate-category")
+def deactivate_category(request, categoryId: str):
+    return ProjectCategory.deactivate_project_category(request, categoryId)
+
+@category_api.delete("/project-category")
+def delete_category(request, categoryId: str):
+    return ProjectCategory.delete_project_category(request, categoryId)
+
+
+# Sub Category APIs
+@sub_category_api.post("/sub-category", response=ProjectCategorySchema)
+def create_project_category(request, project_category: CreateProjectCategorySchema):
+    return ProjectCategory.create_project_category(request, project_category)
+
+@sub_category_api.get("/sub-categories", response=List[ProjectCategorySchema])
+def get_categories(request):
+    return ProjectCategory.get_project_categories(request)
+
+@sub_category_api.get("/sub-category")
+def get_category(request, categoryId: str):
+    return ProjectCategory.get_project_category(request, categoryId)
+
+@sub_category_api.delete("/deactivate-sub-category")
+def deactivate_category(request, categoryId: str):
+    return ProjectCategory.deactivate_project_category(request, categoryId)
+
+@sub_category_api.delete("/sub-category")
+def delete_category(request, categoryId: str):
+    return ProjectCategory.delete_project_category(request, categoryId)
+
+# Project APIs
 @project_api.post("/project", response=ProjectSchema)
 def create_project(request, project: CreateProjectSchema):
     return Project.create_project(request, project)
@@ -30,15 +61,15 @@ def get_projects(request):
     return Project.get_projects(request)
 
 @project_api.get("/project")
-def get_project(request, id: str):
-    return Project.get_project(request, id)
+def get_project(request, projectId: str):
+    return Project.get_project(request, projectId)
 
 
 @project_api.delete("/project")
-def deactivate_project(request, id: str):
-    return Project.deactivate_project(request, id)
+def deactivate_project(request, projectId: str):
+    return Project.deactivate_project(request, projectId)
 
 
 @project_api.delete("/project")
-def delete_project(request, id: str):
-    return Project.delete_project(request, id)
+def delete_project(request, projectId: str):
+    return Project.delete_project(request, projectId)

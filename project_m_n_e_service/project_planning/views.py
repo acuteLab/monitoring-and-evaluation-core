@@ -7,33 +7,48 @@ from .models import (
     ProjectCategory as project_category_table,
     ProjectSubCategory as project_sub_category_table,
 )
-from .schemas import (
-    CreateProjectCategorySchema,
-    CreateProjectSubCategorySchema,
-    ProjectSchema,
-)
+
 
 
 class ProjectCategory:
     def __init__(self,  *args, **kwargs):
         pass
 
-    def create_project_category(request, project_category_data: CreateProjectCategorySchema):
+    def create_project_category(request, project_category_data):
+        print("project Category schema", project_category_data)
         try:
             if project_category_data:
+                if type(project_category_data) != "dict":
+                    project_category_data = project_category_data.dict()
                 project_category = project_category_table.objects.create(
                     **project_category_data
                 )
                 project_category.save()
+                print("out put", project_category)
                 return project_category
             raise "Empty values was sent"
         except:
             pass
+        
+    def update_project_category(request, category_id, category_data):
+        try:
+            if category_id:
+                category = project_category_table.filter(id=category_id)
+                if category:
+                    if category_data:
+                        category.update(**category_data)
+                        return category
+                    raise "Null Data was given"
+                raise "Category was not found"
+            raise "Null Category Id was given"
+        except:
+            pass
+            
 
     def get_project_categories(request):
         try:
             project_categories = project_category_table.objects.filter(
-                is_active=True
+                is_active="true"
             ).order_by("-created_on")
             return project_categories
         except:
@@ -81,7 +96,7 @@ class ProjectSubCategory:
     def __init__(self,  *args, **kwargs):
         pass
 
-    def create_project_sub_category(request, sub_category_data: CreateProjectSubCategorySchema):
+    def create_project_sub_category(request, sub_category_data):
         try:
             if sub_category_data:
                 project_sub_category = project_sub_category_table.objects.create(
@@ -142,7 +157,7 @@ class Project:
     def __init__(self, *args, **kwargs):
         pass
 
-    def create_project(request, project_data: ProjectSchema):
+    def create_project(request, project_data):
         try:
             project = project_table.objects.create(**project_data)
             project.save()
