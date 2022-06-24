@@ -66,8 +66,8 @@ def authenticate_request(db, authorization: str = Header(None)):
             raise credentials_exception
     except jwt.PyJWTError:
         raise credentials_exception
-    
-    
+
+
 def get_id_from_token(token):
     """Get an id from a signed token."""
     try:

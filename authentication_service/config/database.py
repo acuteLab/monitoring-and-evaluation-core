@@ -2,7 +2,7 @@ from __future__ import with_statement
 import os
 import urllib
 import sqlalchemy
-from sqlalchemy import create_engine, engine_from_config, pool
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from alembic import context
@@ -38,6 +38,7 @@ def get_tenant():
 def active_schema(schema_name):
     return declarative_base(metadata=sqlalchemy.MetaData(schema=schema_name))
 
+
 env = Config(".env")
 host_server = env("HOST_SERVER",)
 db_server_port = urllib.parse.quote_plus(env("DB_SERVER_PORT"))
@@ -57,6 +58,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 schema_name = "public"
 Base = active_schema(schema_name)
 # metadata=sqlalchemy.MetaData(schema="coding")
+
 
 def create_tables():
     return Base.metadata.create_all(engine)

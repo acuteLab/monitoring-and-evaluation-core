@@ -3,7 +3,11 @@ from sqlalchemy.orm import Session
 from authentication import models, schemas as user_schemas
 from config.notifications.emails import send_email
 from fastapi import Depends, HTTPException
-from authentication.auth_token import create_token_from_email, decode_access_token, get_id_from_token
+from authentication.auth_token import (
+    create_token_from_email,
+    decode_access_token,
+    get_id_from_token,
+)
 from config.database import get_tenant
 import bcrypt
 
@@ -52,6 +56,7 @@ def create_user(db: Session, user: user_schemas.UserCreate):
             status_code=500, detail="Connection problems occured pls try again"
         )
 
+
 def change_username(db: Session, username: str, user_id: int):
     try:
         user = db.query(models.User).filter(models.User.id == user_id).first()
@@ -78,14 +83,11 @@ def request_reset_password(db: Session, email: str, background, request):
             detail="Sorry your  email address is not registered on this system",
         )
     username = (
-        db.query(models.User)
-        .filter(models.User.id == get_user.id)
-        .first()
-        .full_name
+        db.query(models.User).filter(models.User.id == get_user.id).first().full_name
     )
     try:
         token = create_token_from_email(email)
-        url = 'https:/ismohamedi.dev' + "/reset-password/" + token
+        url = "https:/ismohamedi.dev" + "/reset-password/" + token
         to_email = email
         subject = "RESET PASSWORD"
         body = (
@@ -146,10 +148,7 @@ def change_password(db: Session, password: str, user_id: int, background):
         db.add(user)
         db.commit()
         username = (
-            db.query(models.User)
-            .filter(models.User.id == user_id)
-            .first()
-            .full_name
+            db.query(models.User).filter(models.User.id == user_id).first().full_name
         )
         to_email = user.email
         subject = "CHANGE PASSWORD"
@@ -252,6 +251,7 @@ def activate_user(db: Session, user_id: int, background):
             status_code=400, detail="Connection problems occured pls try again"
         )
 
+
 def mark_account_as_verified_and_active(db_session: Session, token: str):
     """Mark an account as verified and active."""
     user_id = get_id_from_token(token)
@@ -264,6 +264,7 @@ def mark_account_as_verified_and_active(db_session: Session, token: str):
     db_session.add(user_obj)
     db_session.commit()
     return {"status": "Account verified successfully"}
+
 
 def delete_user(db: Session, user_id: int, background):
 
@@ -321,8 +322,6 @@ def create_employee_global(
     return db_employee
 
 
-
-
 def create_role(db: Session, role: user_schemas.RoleCreate):
     role = models.Role(name=role.name)
     db.add(role)
@@ -346,14 +345,12 @@ def create_employee_role(db: Session, employee_id: int, role_id: int):
     return employee_role
 
 
-
 def edit_phone(db: Session, user: user_schemas, user_id):
     get_phone = db.query(models.User).filter(user.id == user_id).first()
     try:
-        get_phone.phone_number =user.phone_number
+        get_phone.phone_number = user.phone_number
         db.add(get_phone)
         db.commit()
         return {"status": 200, "message": "phone number  has been changed"}
     except:
         raise HTTPException(status_code=400, detail="Failed to update phone try again")
-    

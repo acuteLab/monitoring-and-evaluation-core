@@ -25,8 +25,7 @@ def get_current_user(
         token_data = decode_access_token(data=token)
     except:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Invalid token ware given",
+            status_code=status.HTTP_403_FORBIDDEN, detail="Invalid token ware given",
         )
     user = db.query(User).filter(User.email == token_data.get("sub")).first()
     if not user:
@@ -36,9 +35,7 @@ def get_current_user(
     return user
 
 
-def get_current_active_superuser(
-    current_user: User = Depends(get_current_user),
-):
+def get_current_active_superuser(current_user: User = Depends(get_current_user),):
     if current_user.is_system_admin == False:
         raise HTTPException(
             status_code=400, detail="The user doesn't have enough privileges"
