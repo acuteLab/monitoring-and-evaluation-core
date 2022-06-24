@@ -9,27 +9,23 @@ from .models import (
 )
 
 
-
 class ProjectCategory:
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         pass
 
     def create_project_category(request, project_category_data):
-        print("project Category schema", project_category_data)
         try:
             if project_category_data:
                 if type(project_category_data) != "dict":
                     project_category_data = project_category_data.dict()
                 project_category = project_category_table.objects.create(
                     **project_category_data
-                )
-                project_category.save()
-                print("out put", project_category)
+                ).save()
                 return project_category
             raise "Empty values was sent"
         except:
-            pass
-        
+            raise "Internal Server Error"
+
     def update_project_category(request, category_id, category_data):
         try:
             if category_id:
@@ -42,19 +38,18 @@ class ProjectCategory:
                 raise "Category was not found"
             raise "Null Category Id was given"
         except:
-            pass
-            
+           raise "Internal Server Error"
 
     def get_project_categories(request):
         try:
             project_categories = project_category_table.objects.filter(
-                is_active="true"
+                is_active=True
             ).order_by("-created_on")
             return project_categories
         except:
-            pass
+           raise "Internal Server Error"
 
-    def get_project_category(request,category_id: str):
+    def get_project_category(request, category_id: str):
         try:
             if category_id:
                 project_category = project_category_table.objects.filter(
@@ -66,7 +61,7 @@ class ProjectCategory:
                     raise "Project category not found"
             raise " null category Id was given"
         except:
-            pass
+            raise "Internal Server Error"
 
     def deactivate_project_category(request, category_id: str):
         try:
@@ -89,16 +84,18 @@ class ProjectCategory:
             raise "Null Project category Id was given"
 
         except:
-            pass
+            raise "Internal Server Error"
 
 
 class ProjectSubCategory:
-    def __init__(self,  *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         pass
 
     def create_project_sub_category(request, sub_category_data):
         try:
             if sub_category_data:
+                if type(sub_category_data) != "dict":
+                    sub_category_data = sub_category_data.dict()
                 project_sub_category = project_sub_category_table.objects.create(
                     **sub_category_data
                 )
@@ -108,7 +105,7 @@ class ProjectSubCategory:
                 raise "failed to save Project sub category data, please try again"
             raise "Empty Values was sent"
         except:
-            pass
+            raise "Internal Server Error"
 
     def get_project_sub_categories(request):
         try:
@@ -117,7 +114,7 @@ class ProjectSubCategory:
             ).order_by("-created_on")
             return project_sub_categories
         except:
-            pass
+            raise "Internal Server Error"
 
     def get_project_sub_category(request, sub_category_id: str):
         try:
@@ -130,17 +127,19 @@ class ProjectSubCategory:
                 raise "Project Sub Category was not Found"
             raise "Null Sub Category Id was Given"
         except:
-            pass
-        
+            raise "Internal Server Error"
+
     def deactivate_sub_category(request, sub_category_id: str):
         try:
             if sub_category_id:
-                project_sub_category_table.objects.filter(id=sub_category_id).update(is_active=False)
+                project_sub_category_table.objects.filter(id=sub_category_id).update(
+                    is_active=False
+                )
                 return "Project sub category was Deleted (Deactivated) Successful"
             raise "Null Project sub category Id was given"
         except:
-            pass
-        
+            raise "Internal Server Error"
+
     def delete_sub_category(request, sub_category_id: str):
         try:
             if sub_category_id:
@@ -148,9 +147,7 @@ class ProjectSubCategory:
                 return "Project Sub Category wa successful deleted"
             raise "Null Project Sub Category Id was Given"
         except:
-            pass
-            
-                
+            raise "Internal Server Error"
 
 
 class Project:
@@ -164,16 +161,17 @@ class Project:
             return project
 
         except:
-            pass
+            raise "Internal Server Error"
 
     def get_projects(request):
         try:
-            projects = project_table.objects.filter(is_active=True)
+            projects = project_table.objects.filter(is_active=True).order_by(
+                "-created_on"
+            )
             return projects
         except:
-            pass
-        
-        
+            raise "Internal Server Error"
+
     def get_project(request, project_id: str):
         try:
             if project_id:
@@ -181,8 +179,8 @@ class Project:
                 return project
             raise "Null Project Id was given"
         except:
-            pass
-        
+            raise "Internal Server Error"
+
     def deactivate_project(request, project_id: str):
         try:
             if project_id:
@@ -190,8 +188,8 @@ class Project:
                 return "Project was deleted (Deactivated) Successfuly"
             raise "Null Project Id was Given"
         except:
-            pass
-        
+            raise "Internal Server Error"
+
     def delete_project(request, project_id: str):
         try:
             if project_id:
@@ -199,4 +197,4 @@ class Project:
                 return "Project was Successful Deleted"
             raise "NUll Project Id was given"
         except:
-            pass
+            raise "Internal Server Error"

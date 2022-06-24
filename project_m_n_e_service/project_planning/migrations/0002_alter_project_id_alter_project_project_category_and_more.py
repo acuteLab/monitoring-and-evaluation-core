@@ -8,33 +8,44 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('project_planning', '0001_initial'),
+        ("project_planning", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='project',
-            name='id',
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, unique=True),
+            model_name="project",
+            name="id",
+            field=models.UUIDField(
+                default=uuid.uuid4, primary_key=True, serialize=False, unique=True
+            ),
         ),
         migrations.AlterField(
-            model_name='project',
-            name='project_category',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='project_planning.projectsubcategory'),
+            model_name="project",
+            name="project_category",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                to="project_planning.projectsubcategory",
+            ),
         ),
         migrations.AlterField(
-            model_name='projectcategory',
-            name='id',
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, unique=True),
+            model_name="projectcategory",
+            name="id",
+            field=models.UUIDField(
+                default=uuid.uuid4, primary_key=True, serialize=False, unique=True
+            ),
         ),
         migrations.AlterField(
-            model_name='projectdeliverable',
-            name='id',
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, unique=True),
+            model_name="projectdeliverable",
+            name="id",
+            field=models.UUIDField(
+                default=uuid.uuid4, primary_key=True, serialize=False, unique=True
+            ),
         ),
         migrations.AlterField(
-            model_name='projectsubcategory',
-            name='id',
-            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False, unique=True),
+            model_name="projectsubcategory",
+            name="id",
+            field=models.UUIDField(
+                default=uuid.uuid4, primary_key=True, serialize=False, unique=True
+            ),
         ),
     ]

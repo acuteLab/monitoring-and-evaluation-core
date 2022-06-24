@@ -16,7 +16,7 @@ CreateProjectCategorySchema = create_schema(
     ProjectCategory, exclude=excluding_parameters
 )
 
-SubCategorySchema = create_schema(ProjectSubCategory)
+ProjectSubCategorySchema = create_schema(ProjectSubCategory)
 CreateProjectSubCategorySchema = create_schema(
     ProjectSubCategory, exclude=excluding_parameters
 )

@@ -5,8 +5,8 @@ from config.base_model import BaseModel
 
 
 class ProjectCategory(BaseModel):
-    name = models.CharField(max_length=4000, null=True, blank=True)
-    short_name = models.CharField(max_length=4000,null=True, blank=True)
+    name = models.CharField(max_length=4000)
+    short_name = models.CharField(max_length=4000, null=True, blank=True)
 
     class Meta:
         db_table = "project_category"
@@ -44,7 +44,9 @@ class Project(BaseModel):
     title = models.CharField(max_length=8000, null=True, blank=True)
     description = models.TextField(max_length=100000, null=True, blank=True)
     estimate_time_line = models.IntegerField(null=True, blank=True)
-    project_category = models.ForeignKey("ProjectSubCategory", on_delete=models.DO_NOTHING)
+    project_category = models.ForeignKey(
+        "ProjectSubCategory", null=True, blank=True,on_delete=models.DO_NOTHING
+    )
 
     class Meta:
         db_table = "project"
