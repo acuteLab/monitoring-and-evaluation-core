@@ -5,9 +5,8 @@ from config.base_model import BaseModel
 
 
 class ProjectCategory(BaseModel):
-    id = models.UUIDField(primary_key=True, unique=True)
-    name = models.CharField(max_length=4000, null=True, blank=True)
-    short_name = models.CharField(max_length=4000,null=True, blank=True)
+    name = models.CharField(max_length=4000)
+    short_name = models.CharField(max_length=4000, null=True, blank=True)
 
     class Meta:
         db_table = "project_category"
@@ -21,7 +20,6 @@ class ProjectCategory(BaseModel):
 
 
 class ProjectSubCategory(BaseModel):
-    id = models.UUIDField(primary_key=True, unique=True)
     name = models.CharField(max_length=300)
     short_name = models.CharField(max_length=300, null=True, blank=True)
     category = models.ForeignKey("ProjectCategory", on_delete=models.DO_NOTHING)
@@ -42,12 +40,13 @@ class ProjectSubCategory(BaseModel):
 
 
 class Project(BaseModel):
-    id = models.UUIDField(primary_key=True, unique=True)
     name = models.CharField(max_length=500)
     title = models.CharField(max_length=8000, null=True, blank=True)
     description = models.TextField(max_length=100000, null=True, blank=True)
     estimate_time_line = models.IntegerField(null=True, blank=True)
-    project_category = models.ForeignKey("ProjectSubCategory", on_delete=models.DO_NOTHING)
+    project_category = models.ForeignKey(
+        "ProjectSubCategory", null=True, blank=True,on_delete=models.DO_NOTHING
+    )
 
     class Meta:
         db_table = "project"
@@ -59,7 +58,6 @@ class Project(BaseModel):
 
 
 class ProjectDeliverable(BaseModel):
-    id = models.UUIDField(primary_key=True, unique=True)
     deliverable = models.CharField(max_length=400, null=True, blank=True)
     description = models.TextField(max_length=10000, null=True, blank=True)
     planned_start_date = models.DateTimeField(null=True, blank=True)

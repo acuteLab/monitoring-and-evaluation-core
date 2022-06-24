@@ -1,7 +1,4 @@
-from unicodedata import category
-from venv import create
 from ninja.orm import create_schema
-from ninja import Schema
 import uuid
 from typing import List
 from .models import (
@@ -19,7 +16,7 @@ CreateProjectCategorySchema = create_schema(
     ProjectCategory, exclude=excluding_parameters
 )
 
-SubCategorySchema = create_schema(ProjectSubCategory)
+ProjectSubCategorySchema = create_schema(ProjectSubCategory)
 CreateProjectSubCategorySchema = create_schema(
     ProjectSubCategory, exclude=excluding_parameters
 )
