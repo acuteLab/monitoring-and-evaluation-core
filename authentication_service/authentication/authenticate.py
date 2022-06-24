@@ -87,4 +87,3 @@ def verify_account(token: str = "", db_session: Session = Depends(get_db)):
 @router.post("/authenticate", status_code=HTTP_200_OK)
 def authenticate(token: str = "", db_session: Session = Depends(get_db)):
     return authenticate_request(db_session, token)
-

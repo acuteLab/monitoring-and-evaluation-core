@@ -28,11 +28,9 @@ class User(Base):
     def full_name(self):
         return "{} {}".format(self.first_name, self.last_name)
 
-
     @property
     def get_phone(self):
         return self.phone_number
-
 
     @property
     def get_email(self):
@@ -45,4 +43,3 @@ class Role(Base):
     name = Column(String, nullable=True)
     created_on = Column(DateTime, default=datetime.now())
     updated_on = Column(DateTime, default=datetime.now())
-

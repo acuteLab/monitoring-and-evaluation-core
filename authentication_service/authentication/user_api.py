@@ -7,7 +7,7 @@ from dependencies import get_current_user
 from starlette.requests import Request
 
 
-from .authenticate import create_access_token,authenticate_user
+from .authenticate import create_access_token, authenticate_user
 
 router = APIRouter()
 
@@ -42,6 +42,13 @@ async def get_user_by_id(user_id: str, db: Session = Depends(get_db)):
     return db_user
 
 
+@router.delete("/user")
+async def delete_user_account(
+    user_id: str, background: BackgroundTasks, db: Session = Depends(get_db)
+):
+    return operations.delete_user(db, user_id, background)
+
+
 @router.put("/change-username")
 async def change_user_name(
     token: str, details: schemas.UserBase, db: Session = Depends(get_db)
@@ -62,13 +69,6 @@ async def deactivate_user_account(
     user_id: str, background: BackgroundTasks, db: Session = Depends(get_db)
 ):
     return operations.deactivate_user(db, user_id, background)
-
-
-@router.delete("/delete-user")
-async def delete_user_account(
-    user_id: str, background: BackgroundTasks, db: Session = Depends(get_db)
-):
-    return operations.delete_user(db, user_id, background)
 
 
 @router.post("/request-reset-password")
