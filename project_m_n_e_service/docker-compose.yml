@@ -6,7 +6,7 @@ services:
     build: .
     # environment:
     #   IP: 41.59.88.233
-    command: bash -c "python manage.py run server --host 0.0.0.0 --port 8000"
+    command: bash -c "gunicorn --bind 0.0.0.0:8000 project_m_n_e_service.wsgi"
     container_name: authentications
     image: authentications
     working_dir: /authentications

@@ -8,6 +8,7 @@ django-ninja = "*"
 psycopg2-binary = "*"
 pillow = "*"
 django-environ = "*"
+gunicorn = "*"
 
 [dev-packages]
 
