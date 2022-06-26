@@ -14,11 +14,11 @@ from .schemas import (
     ProjectSubCategorySchema,
 )
 
-# auth=GlobalAuth
-category_api = Router()
-sub_category_api = Router()
-project_api = Router()
-project_deliverable_api = Router()
+auth=GlobalAuth()
+category_api = Router(auth=auth)
+sub_category_api = Router(auth=auth)
+project_api = Router(auth=auth)
+project_deliverable_api = Router(auth=auth)
 
 # Category APIs
 @category_api.post("/project-category", response=ProjectCategorySchema)
