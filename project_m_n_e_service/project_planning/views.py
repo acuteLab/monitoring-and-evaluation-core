@@ -6,6 +6,7 @@ from .models import (
     Project as project_table,
     ProjectCategory as project_category_table,
     ProjectSubCategory as project_sub_category_table,
+    ProjectDeliverable as project_deliverable_table
 )
 
 
@@ -195,6 +196,64 @@ class Project:
             if project_id:
                 project_table.objects.filter(id=project_id).delete()
                 return "Project was Successful Deleted"
-            raise "NUll Project Id was given"
+            raise "Null Project Id was given"
+        except:
+            raise "Internal Server Error"
+        
+        
+class ProjectDeliverable:
+    def __init__(self):
+          pass
+      
+    def create_project_deliverable(request, deliverable):
+        try:
+            if deliverable:
+                if type(deliverable) != "dict":
+                    deliverable = deliverable.dict()
+                
+                project_deliverable = project_deliverable_table.objects.create(**deliverable)
+                project_deliverable.save()
+                return project_deliverable
+            raise "Null values was given"
+        except:
+            raise "Internal Server Error"
+    
+    def update_project_deliverable(request, deliverable_id, deliverable):
+        try:
+            if deliverable_id:
+                if deliverable:
+                    project_deliverable = project_deliverable_table.objects.filter(id=deliverable_id)
+                    if project_deliverable:
+                        project_deliverable.update(**deliverable)
+                        return deliverable
+                    raise "There is no Project Deliverable with that given Id"
+                raise "Null Values was given"
+            raise "Null Deliverable Id was given"
+        except:
+            "Internal server Error"
+            
+    def get_project_deliverables(request):
+        try:
+            return project_deliverable_table.objects.filter(is_active=True).order_by("-created_on")
+        except:
+            raise "Internal Server Error"
+        
+    def get_project_deliverable(deliverable_id):
+        try:
+            if deliverable_id:
+                project_deliverable = project_deliverable_table.objects.filter(is_active=True, id=deliverable_id).order_by("-created_on")
+                if project_deliverable:
+                    return project_deliverable
+                raise "No Project Deliverable found with the given Project Deliverable Id"
+            raise "Null Project Deliverable Id was given"
+        except:
+            raise "Internal Server Error"
+        
+    def deactivate_project_deliverable(request, deliverable_id):
+        try:
+            if deliverable_id:
+                project_category_table.objects.filter(id=deliverable_id).update(is_active=False)
+                return "Project Deliverable deleted (Deactivated) Successful"
+            raise "Null Project Deliverable Id was given"
         except:
             raise "Internal Server Error"
