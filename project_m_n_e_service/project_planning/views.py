@@ -129,6 +129,20 @@ class ProjectSubCategory:
             raise "Null Sub Category Id was Given"
         except:
             raise "Internal Server Error"
+        
+    def update_project_sub_category(request, sub_category_id, sub_category_data):
+        try:
+            if sub_category_id:
+                sub_category = project_sub_category_table.filter(id=sub_category_id)
+                if sub_category:
+                    if sub_category_data:
+                        sub_category.update(**sub_category_data)
+                        return sub_category
+                    raise "Null Data was given"
+                raise "Sub Category was not found"
+            raise "Null Sub Category Id was given"
+        except:
+           raise "Internal Server Error"
 
     def deactivate_sub_category(request, sub_category_id: str):
         try:
@@ -181,6 +195,23 @@ class Project:
             raise "Null Project Id was given"
         except:
             raise "Internal Server Error"
+        
+    def update_project(request, project_id: str, project_data):
+        try:
+            if project_id:
+                 if project_data:
+                     if type(project_data) != "dict":
+                         project_data = project_data.dict()
+                     project = project_table.objects.filter(id=project_id)
+                     if project:
+                         project.update(**project_data)
+                         return project
+                     raise "Project with the given Id was not found"
+                 raise "Null Values was given"
+            raise "Null Project Id was Given"
+        except:
+            raise "Internal Server Error"
+
 
     def deactivate_project(request, project_id: str):
         try:
