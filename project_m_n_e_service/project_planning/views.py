@@ -1,7 +1,4 @@
-from cmath import exp
-from re import sub
-from tempfile import TemporaryFile
-from django.shortcuts import render
+
 from .models import (
     Project as project_table,
     ProjectCategory as project_category_table,
@@ -130,6 +127,19 @@ class ProjectSubCategory:
         except:
             raise "Internal Server Error"
         
+        
+    def get_sub_category_by_category(request, category_id: str):
+        try:
+            if category_id:
+                project_sub_categories = project_sub_category_table.objects.filter(
+                    is_active=True, category__id=category_id
+                )
+                return project_sub_categories
+            raise "Null Category Id was Given"
+        except:
+            raise "Internal Server Error"
+
+        
     def update_project_sub_category(request, sub_category_id, sub_category_data):
         try:
             if sub_category_id:
@@ -193,6 +203,14 @@ class Project:
                 project = project_table.objects.filter(is_active=True, id=project_id)
                 return project
             raise "Null Project Id was given"
+        except:
+            raise "Internal Server Error"
+    def get_project_by_category(request, category_id):
+        try:
+            if category_id:
+                projects = project_table.objects.filter(project_category__id=category_id).order_by("-created_on")
+                return projects
+            raise "Null Project Category Id was given"
         except:
             raise "Internal Server Error"
         
@@ -288,3 +306,13 @@ class ProjectDeliverable:
             raise "Null Project Deliverable Id was given"
         except:
             raise "Internal Server Error"
+        
+    def get_deliverable_by_project(request, project_id):
+        try:
+            if project_id:
+                project_deliverables = project_deliverable_table.objects.filter(project__id=project_id).order_by("-created_on")
+                return project_deliverables
+            raise "Null project Id was given"
+        except:
+            raise "Internal Server Error"
+        
