@@ -1,4 +1,3 @@
-from urllib import response
 from ninja import Router
 from config.auths import GlobalAuth
 from typing import List
@@ -62,8 +61,12 @@ def get_sub_categories(request):
 
 
 @sub_category_api.get("/sub-category", response=ProjectSubCategorySchema)
-def get_sub_category(request, categoryId: str):
-    return ProjectSubCategory.get_project_sub_category(request, categoryId)
+def get_sub_category(request, subCategoryId: str):
+    return ProjectSubCategory.get_project_sub_category(request, subCategoryId)
+
+@sub_category_api.get("/category/sub-categories", response=List[ProjectSubCategorySchema])
+def get_sub_category_by_category_id(request, categoryId: str):
+    return ProjectSubCategory.get_sub_category_by_category(request, categoryId)
 
 @sub_category_api.patch("/sub-category", response=ProjectSubCategorySchema)
 def update_sub_category(request, subCategoryId: str, subCategory: CreateProjectSubCategorySchema):
@@ -95,6 +98,10 @@ def get_projects(request):
 def get_project(request, projectId: str):
     return Project.get_project(request, projectId)
 
+@project_api.get("/category/projects", response=List[ProjectSchema])
+def get_project_by_category_id(request, categoryId: str):
+    return Project.get_project_by_category(request, categoryId)
+
 
 @project_api.patch("/project", response=ProjectSchema)
 def deactivate_project(request, projectId: str, project: CreateProjectSchema):
@@ -124,6 +131,10 @@ def get_project_deliverables(request):
 @project_deliverable_api.get("/project-deliverable", response=ProjectDeliverableSchema)
 def get_project_deliverable(request, deliverableId: str):
     return ProjectDeliverable.get_project_deliverable(request, deliverableId)
+
+@project_deliverable_api.get("/project/project-deliverables", response=List[ProjectDeliverableSchema])
+def get_project_deliverable_by_project_id(request, projectId: str):
+    return ProjectDeliverable.get_deliverable_by_project(request, projectId)
 
 @project_deliverable_api.patch("/project-deliverable", response=ProjectDeliverableSchema)
 def update_project_deliverable(request, deliverableId: str, projectDeliverable: CreateProjectDeliverableSchema):
