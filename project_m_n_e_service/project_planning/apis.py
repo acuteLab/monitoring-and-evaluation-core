@@ -1,4 +1,3 @@
-from urllib import response
 from ninja import Router
 from config.auths import GlobalAuth
 from typing import List
