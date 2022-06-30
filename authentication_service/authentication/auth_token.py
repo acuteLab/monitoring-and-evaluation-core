@@ -39,11 +39,11 @@ def create_token_from_email(email: str):
 
 
 def decode_access_token(*, data: str):
-    try:
+    # try:
         to_decode = data
-        return jwt.decode(to_decode, secret_key, algorithm=algorithm)
-    except:
-        raise HTTPException(status_code=400, detail="Token has been expired")
+        return jwt.decode(to_decode, secret_key, algorithm)
+    # except:
+    #     raise HTTPException(status_code=400, detail="Token has been expired")
 
 
 def get_account(db_session: Session, id: int):
@@ -51,12 +51,12 @@ def get_account(db_session: Session, id: int):
 
 
 def authenticate_request(db, authorization: str = Header(None)):
+    print("The function Hitted")
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    token = get_authorization_scheme_param(authorization)
     try:
         payload = decode_access_token(data=authorization)
         try:
