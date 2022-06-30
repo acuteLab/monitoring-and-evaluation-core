@@ -1,6 +1,6 @@
 from django.db import models
 from config.base_model import BaseModel
-
+from django_countries.fields import CountryField
 # Create your models here.
 
 
@@ -40,13 +40,13 @@ class ProjectSubCategory(BaseModel):
 
 
 class Project(BaseModel):
-    name = models.CharField(max_length=500)
-    title = models.CharField(max_length=8000, null=True, blank=True)
+    name = models.CharField(max_length=8000, null=True, blank=True)
     description = models.TextField(max_length=100000, null=True, blank=True)
     estimate_time_line = models.IntegerField(null=True, blank=True)
     project_category = models.ForeignKey(
         "ProjectSubCategory", null=True, blank=True,on_delete=models.DO_NOTHING
     )
+    country = CountryField()
 
     class Meta:
         db_table = "project"
