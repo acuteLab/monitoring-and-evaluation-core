@@ -9,6 +9,8 @@ psycopg2-binary = "*"
 pillow = "*"
 django-environ = "*"
 gunicorn = "*"
+django-money = "*"
+django-countries = "*"
 
 [dev-packages]
 
