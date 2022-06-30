@@ -1,4 +1,5 @@
 from ninja.security import HttpBearer
+import requests
 
 
 class GlobalAuth(HttpBearer):
@@ -8,4 +9,5 @@ class GlobalAuth(HttpBearer):
 
 class Auth:
     def authenticate_request(request, token: str):
-        pass
+        url = 'http://localhost:8001/authenticate?token='
+        return requests.post(url + token)
