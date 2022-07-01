@@ -1,5 +1,4 @@
 from ninja.orm import create_schema
-import uuid
 from typing import List
 from .models import (
     Project,
@@ -8,7 +7,7 @@ from .models import (
     ProjectSubCategory,
 )
 
-excluding_parameters = ["id", "created_on", "updated_on", "is_active", "created_by"]
+from config.base_model import excluding_parameters
 
 
 ProjectCategorySchema = create_schema(ProjectCategory)
