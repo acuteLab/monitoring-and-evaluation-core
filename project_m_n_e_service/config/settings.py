@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "project_planning",
+    "project_budget_managemenet",
     "djmoney",
     "django_countries"
 ]
