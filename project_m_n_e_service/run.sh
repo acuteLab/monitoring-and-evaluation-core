@@ -11,4 +11,4 @@ echo "${green}>>> activate the Virtual Environment ${reset}"
 source $(pipenv --venv)/bin/activate
 sleep 2
 echo "${green}>>> Running server (Project_m_n_e_service Server) ${reset}"
-gunicorn project_m_n_e.wsgi
+gunicorn --bind 0.0.0.0:8000 project_m_n_e_service.wsgi
