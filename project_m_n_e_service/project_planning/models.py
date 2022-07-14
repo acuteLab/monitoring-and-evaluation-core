@@ -48,7 +48,7 @@ class Project(BaseModel):
     project_category = models.ForeignKey(
         "ProjectSubCategory", null=True, blank=True,on_delete=models.DO_NOTHING
     )
-    country = CountryField()
+    country = models.CharField(max_length=3)
 
     class Meta:
         db_table = "project"

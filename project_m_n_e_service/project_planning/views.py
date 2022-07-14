@@ -16,6 +16,7 @@ class ProjectCategory:
             if project_category_data:
                 if type(project_category_data) != "dict":
                     project_category_data = project_category_data.dict()
+                print("Data", project_category_data)
                 project_category = project_category_table.objects.create(
                     **project_category_data, created_by=request.user["id"]
                 ).save()
@@ -183,7 +184,11 @@ class Project:
 
     def create_project(request, project_data):
         try:
-            project = project_table.objects.create(**project_data, created_by=request.user["id"])
+            if type(project_data) != "dict":
+                project_data = project_data.dict()
+            project_category_id = project_data["project_category"]
+            project_data.pop("project_category")
+            project = project_table.objects.create(**project_data, project_category_id=project_category_id, created_by=request.user["id"])
             project.save()
             return project
 
