@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     "project_planning",
     "project_budget_managemenet",
     "djmoney",
-    "django_countries"
+    "django_countries",
+    "core"
 ]
 
 MIDDLEWARE = [
