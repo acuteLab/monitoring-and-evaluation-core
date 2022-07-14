@@ -27,6 +27,8 @@ class ProjectSubCategory(BaseModel):
         "ProjectSubCategory",
         verbose_name="sub_category_of",
         on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True
     )
 
     def __str__(self):

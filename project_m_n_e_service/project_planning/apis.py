@@ -74,8 +74,8 @@ def update_sub_category(request, subCategoryId: str, subCategory: CreateProjectS
 
 
 @sub_category_api.delete("/deactivate-sub-category")
-def deactivate_sub_category(request, categoryId: str):
-    return ProjectSubCategory.deactivate_project_sub_category(request, categoryId)
+def deactivate_sub_category(request, subCategoryId: str):
+    return ProjectSubCategory.deactivate_sub_category(request, subCategoryId)
 
 
 @sub_category_api.delete("/sub-category")
