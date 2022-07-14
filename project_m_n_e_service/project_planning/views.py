@@ -17,7 +17,7 @@ class ProjectCategory:
                 if type(project_category_data) != "dict":
                     project_category_data = project_category_data.dict()
                 project_category = project_category_table.objects.create(
-                    **project_category_data
+                    **project_category_data, created_by=request.user["id"]
                 ).save()
                 return project_category
             raise "Empty values was sent"
@@ -54,7 +54,7 @@ class ProjectCategory:
                     is_active=True, id=category_id
                 )
                 if project_category:
-                    return project_category
+                    return project_category[0]
                 else:
                     raise "Project category not found"
             raise " null category Id was given"
@@ -94,8 +94,10 @@ class ProjectSubCategory:
             if sub_category_data:
                 if type(sub_category_data) != "dict":
                     sub_category_data = sub_category_data.dict()
+                category_id = sub_category_data["category"]
+                sub_category_data.pop("category")
                 project_sub_category = project_sub_category_table.objects.create(
-                    **sub_category_data
+                    **sub_category_data, category_id=category_id, created_by=request.user["id"]
                 )
                 project_sub_category.save()
                 if project_sub_category:
@@ -121,7 +123,7 @@ class ProjectSubCategory:
                     is_active=True, id=sub_category_id
                 )
                 if project_sub_category:
-                    return project_sub_category
+                    return project_sub_category[0]
                 raise "Project Sub Category was not Found"
             raise "Null Sub Category Id was Given"
         except:
@@ -181,7 +183,7 @@ class Project:
 
     def create_project(request, project_data):
         try:
-            project = project_table.objects.create(**project_data)
+            project = project_table.objects.create(**project_data, created_by=request.user["id"])
             project.save()
             return project
 
@@ -201,7 +203,7 @@ class Project:
         try:
             if project_id:
                 project = project_table.objects.filter(is_active=True, id=project_id)
-                return project
+                return project[0]
             raise "Null Project Id was given"
         except:
             raise "Internal Server Error"
@@ -223,7 +225,7 @@ class Project:
                      project = project_table.objects.filter(id=project_id)
                      if project:
                          project.update(**project_data)
-                         return project
+                         return project[0]
                      raise "Project with the given Id was not found"
                  raise "Null Values was given"
             raise "Null Project Id was Given"
@@ -259,8 +261,7 @@ class ProjectDeliverable:
             if deliverable:
                 if type(deliverable) != "dict":
                     deliverable = deliverable.dict()
-                
-                project_deliverable = project_deliverable_table.objects.create(**deliverable)
+                project_deliverable = project_deliverable_table.objects.create(**deliverable, created_by=request.user["id"])
                 project_deliverable.save()
                 return project_deliverable
             raise "Null values was given"
@@ -292,7 +293,7 @@ class ProjectDeliverable:
             if deliverable_id:
                 project_deliverable = project_deliverable_table.objects.filter(is_active=True, id=deliverable_id).order_by("-created_on")
                 if project_deliverable:
-                    return project_deliverable
+                    return project_deliverable[0]
                 raise "No Project Deliverable found with the given Project Deliverable Id"
             raise "Null Project Deliverable Id was given"
         except:

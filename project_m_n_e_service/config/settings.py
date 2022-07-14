@@ -127,3 +127,4 @@ MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_URL = env("AUTH_URL")
+AUTH_USER_URL = env("AUTH_USER_URL")
