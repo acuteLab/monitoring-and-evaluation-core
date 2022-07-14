@@ -13,6 +13,7 @@ class Country:
         
     def get_country_by_code(request, country_code):
         try:
+            country_code = country_code.upper()
             return {'country_code': country_code, 'country_name': dict(countries)[country_code]}
         except:
             raise "Inernal Server Error"
