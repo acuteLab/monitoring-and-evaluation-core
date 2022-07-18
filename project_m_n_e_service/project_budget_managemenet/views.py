@@ -3,6 +3,18 @@ from .models import ProjectBudget as project_budget_table
 
 # Create your views here.
 
+class Currency:
+    """ Currency and its Units"""
+    def __init__(self, arg):
+        super(Currency, self).__init__()
+    
+        
+    def get_currencies(request):
+        pass
+
+
+    
+
 class ProjectBudget:
     def __init__(self):
           pass

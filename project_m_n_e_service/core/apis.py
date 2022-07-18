@@ -1,7 +1,12 @@
 from ninja import Router
-from .views import Country
+from .views import Country, Currency
 
 country_api = Router()
+
+
+@country_api.get("/currencies")
+def get_currencies(request):
+    return Currency.get_currencies(request)
 
 @country_api.get("/countries")
 def get_countries(request):

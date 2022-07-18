@@ -5,7 +5,7 @@ from core.apis import country_api
 
 
 api = NinjaAPI(title="Project Monitoring and Evaluation Service", docs_url="/docs",)
-api.add_router("", country_api, tags=["Country APIs"])
+api.add_router("", country_api, tags=["CORE APIs"])
 api.add_router("", category_api, tags=["Project Category APIs"])
 api.add_router("", sub_category_api, tags=["Project Sub Category APIs"])
 api.add_router("", project_api, tags=["Project APIs"])
