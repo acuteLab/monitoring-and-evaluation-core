@@ -166,7 +166,7 @@ class ProjectSubCategory:
                 return "Project sub category was Deleted (Deactivated) Successful"
             raise "Null Project sub category Id was given"
         except:
-            raise "Internal Server Error"
+            raise "Internal Server Error please try again"
 
     def delete_sub_category(request, sub_category_id: str):
         try:
